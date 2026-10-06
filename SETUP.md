@@ -225,11 +225,19 @@ for future demos). You don't toggle anything by hand.
 
 ---
 
-## Step 2 — Install the app
+## Step 2 — Make it an org-level app, then install it
 
-In the app settings, go to **OAuth & Permissions** (or **Install App**) →
-**Install to Workspace** → **Allow**. That's it. Scopes and the redirect URL
-came from the manifest.
+Demo orgs are Enterprise+ organizations, so the app needs to be enabled at the
+**org level** before you install it.
+
+1. **Enable it as an org-level app.** In the app settings, go to **Org Level
+   Apps** (left sidebar, under Settings) and click **Opt-In**, then confirm.
+2. **Install it.** Go to **Install App** → **Install to Organization** →
+   **Allow**.
+3. **Add it to your demo workspace.** If Slack asks which workspaces should
+   have the app, pick the workspace(s) you'll run demos in.
+
+That's it. Scopes and the redirect URL came from the manifest.
 
 <details>
 <summary>What the manifest's scopes do (reference)</summary>
