@@ -139,7 +139,6 @@ for future demos). You don't toggle anything by hand.
            "im:write",
            "mpim:write",
            "users:write",
-           "admin.dlp:write",
            "admin",
            "admin.analytics:read",
            "admin.app_activities:read",
@@ -254,7 +253,7 @@ the manifest):
 | `im:write`, `mpim:write` | Open DMs / group DMs as the persona |
 | `users:write` | Set the persona's presence (show as active during a demo) |
 | `workflows.templates:write` | Create Workflow Builder templates as the persona |
-| `admin`, `admin.*` | Org admin APIs: users, conversations, apps, workflows, barriers, DLP, analytics. Only work for a persona who is an org admin/owner |
+| `admin`, `admin.*` | Org admin APIs: users, conversations, apps, workflows, barriers, analytics. Only work for a persona who is an org admin/owner |
 
 **Bot Token Scopes** (app notifications, channel admin, strict verification):
 
