@@ -1,0 +1,49 @@
+{
+  "app": "Confluence",
+  "fake_bot_id": "Confluence",
+  "notes": "Confluence Cloud for Slack page notifications (page published, page updated, comment added). Layout mirrors the Jira Cloud card fidelity rules: (1) a mrkdwn activity line ('<who> published a page in <space>'); (2) the page title is a bold mrkdwn LINK in a `section` (NOT a header block) — point it at a REAL page in jenniferhynes.atlassian.net/wiki; (3) a short excerpt; (4) action buttons (View page / Comment / Watch / Share); (5) a context footer 'Added by Confluence Cloud'. Post via send_app_notification.py --app confluence --example <name> --ticket-url <real page url>.",
+  "examples": [
+    {
+      "name": "page_published",
+      "when": "A new page (PRD, RFC, runbook) is published in a watched space.",
+      "blocks": [
+        {"type": "section", "text": {"type": "mrkdwn", "text": ":page_facing_up:  *Alexandra French* published a page in *Software Development*"}},
+        {"type": "section", "text": {"type": "mrkdwn", "text": "*<https://your-site.atlassian.net/wiki/spaces/SD/pages/1|Product Requirements: New Feature>*\nProblem, goals, requirements, success metrics, and rollout plan for the next release."}},
+        {"type": "actions", "elements": [
+          {"type": "button", "text": {"type": "plain_text", "text": "View page", "emoji": true}, "action_id": "cf_view", "value": "view"},
+          {"type": "button", "text": {"type": "plain_text", "text": "Comment", "emoji": true}, "action_id": "cf_comment", "value": "comment"},
+          {"type": "button", "text": {"type": "plain_text", "text": "Watch", "emoji": true}, "action_id": "cf_watch", "value": "watch"},
+          {"type": "button", "text": {"type": "plain_text", "text": "✨ Summarize", "emoji": true}, "action_id": "cf_ai", "value": "ai"}
+        ]},
+        {"type": "context", "elements": [{"type": "mrkdwn", "text": "Added by Confluence Cloud"}]}
+      ]
+    },
+    {
+      "name": "page_updated",
+      "when": "An existing page is edited (new version).",
+      "blocks": [
+        {"type": "section", "text": {"type": "mrkdwn", "text": ":pencil2:  *Derek Manager* updated a page in *Software Development*"}},
+        {"type": "section", "text": {"type": "mrkdwn", "text": "*<https://your-site.atlassian.net/wiki/spaces/SD/pages/2|Release Notes>*\n_Version 3 · \"Added performance table and known issues\"_"}},
+        {"type": "actions", "elements": [
+          {"type": "button", "text": {"type": "plain_text", "text": "View page", "emoji": true}, "action_id": "cf_view", "value": "view"},
+          {"type": "button", "text": {"type": "plain_text", "text": "View changes", "emoji": true}, "action_id": "cf_diff", "value": "diff"},
+          {"type": "button", "text": {"type": "plain_text", "text": "Comment", "emoji": true}, "action_id": "cf_comment", "value": "comment"}
+        ]},
+        {"type": "context", "elements": [{"type": "mrkdwn", "text": "Added by Confluence Cloud"}]}
+      ]
+    },
+    {
+      "name": "comment_added",
+      "when": "Someone comments on a watched page.",
+      "blocks": [
+        {"type": "section", "text": {"type": "mrkdwn", "text": ":speech_balloon:  *James Cox* commented on a page in *Software Development*"}},
+        {"type": "section", "text": {"type": "mrkdwn", "text": "*<https://your-site.atlassian.net/wiki/spaces/SD/pages/3|Technical Design RFC>*\n> Should invalidation be event-driven or TTL-based? I'd lean event-driven with the version hash in the key as a backstop."}},
+        {"type": "actions", "elements": [
+          {"type": "button", "text": {"type": "plain_text", "text": "Reply", "emoji": true}, "action_id": "cf_reply", "value": "reply"},
+          {"type": "button", "text": {"type": "plain_text", "text": "View page", "emoji": true}, "action_id": "cf_view", "value": "view"}
+        ]},
+        {"type": "context", "elements": [{"type": "mrkdwn", "text": "Added by Confluence Cloud"}]}
+      ]
+    }
+  ]
+}
