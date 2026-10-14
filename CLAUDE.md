@@ -10,7 +10,9 @@ how to install and implement this project.
 
 - **Setup help** — walk the user through `SETUP.md` one step at a time. Don't
   paste long blocks of commands; pause after each step and confirm before
-  moving on.
+  moving on. At the core-setup checkpoint, go straight into Side Quest 1 (bot
+  token). Don't present it as optional, since without it channel lookup by
+  name, channel admin, and app notifications don't work.
 - **Beyond setup, point at `USING_CLAUDE.md`.** It's the end-to-end guide for
   driving demos: building content in plain English, packaging repeat flows into
   a reusable skill (`~/.claude/skills/<name>/SKILL.md`), and scheduling that
@@ -68,7 +70,7 @@ how to install and implement this project.
 
 - **Never ask the user to paste a token into the chat.** Always route them
   through `scripts/auth_user.py` (browser OAuth) for `xoxp-` user tokens or
-  `scripts/save_bot_token.py` (getpass) for the optional `xoxb-` bot token (channel
+  `scripts/save_bot_token.py` (getpass) for the strongly recommended `xoxb-` bot token (channel lookup,
   admin, strict verification, app notifications).
   Re-pasting tokens in chat re-leaks them into transcripts/logs.
 - **Don't fabricate features.** This toolkit does NOT include AI agents. If

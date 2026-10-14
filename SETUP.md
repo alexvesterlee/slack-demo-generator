@@ -18,9 +18,10 @@ Once it's set up you can, for example:
   other system through an MCP server, so the story stays internally consistent.
 - **Clean it all up afterward** from a manifest of everything you posted.
 
-Setup is one-time, ~15–20 minutes. You can do the minimum (personas + messages)
-first and add the optional pieces (app notifications, channel admin, MCP data)
-whenever you need them.
+Setup is one-time, ~15–20 minutes. Do the core setup (personas + messages)
+plus **Side Quest 1 (the bot token), which is strongly recommended**. It's what
+lets Claude find channels by name. The rest (MCP data) can wait until you need
+it.
 
 > **Already set up?** [USING_CLAUDE.md](USING_CLAUDE.md) is the next guide: how
 > to build demos with Claude in plain English, package repeat flows into a
@@ -496,22 +497,27 @@ Nice work. Take a quick pause here. Right now you can:
 
 You **can't** yet:
 
+- ❌ Look up channels by name (so "post in #sales-leadership" works without
+  you hunting down channel IDs)
 - ❌ Create or manage channels (add users, set topics, rename, archive)
 - ❌ Post app notifications (PagerDuty, Jira, Salesforce cards, etc.)
 - ❌ Pull from or update third-party tools like Salesforce
 
-The two side quests below unlock those. Do them now or come back later when a
-demo needs them.
+The two side quests below unlock those. **Do Side Quest 1 now.** Without it,
+Claude usually can't work out which channel you mean. Side Quest 2 can wait
+until a demo needs it.
 
 ---
 
-## Side Quest 1: Channel Management & App Notifications
+## Side Quest 1: Channel Management & App Notifications (⭐ Strongly recommended)
 
 ### Save the bot token
 
 > ⚠️ **Super important:** the bot token is what lets Claude **build out your demo org**, not just post
 > a few messages. With it, the app can:
 >
+> - **look up channels by name**, so you can say "post in #sales-leadership"
+>   instead of finding channel IDs yourself,
 > - **create new channels** and rename or archive old ones,
 > - **add users into channels**,
 > - **set channel topics**,
@@ -519,7 +525,8 @@ demo needs them.
 > - and double-check that each user token belongs to the right person.
 >
 > Without it, you're limited to posting messages in channels that already
-> exist. For bigger demo builds across many channels and users, you need this.
+> exist, and you'll often have to look up each channel's ID by hand (channel →
+> **About**). For bigger demo builds across many channels and users, you need this.
 
 Installing the app in Step 2 created the bot token, but the toolkit doesn't
 have a copy of it yet. (Your user tokens were saved automatically when you
