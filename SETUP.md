@@ -233,6 +233,12 @@ Demo orgs are Enterprise+ organizations, so the app needs to be enabled at the
 
 1. **Enable it as an org-level app.** In the app settings, go to **Org Level
    Apps** (left sidebar, under Settings) and click **Opt-In**, then confirm.
+   **Install to Organization** in the next step only appears after this.
+
+   > ⚠️ **Any time you save a change to the app manifest, opt in again.**
+   > Saving the manifest resets the app to `"org_deploy_enabled": false`, which
+   > quietly opts it back out. Go back to **Org Level Apps** → **Opt-In** after
+   > every manifest change.
 2. **Install it.** Go to **Install App** → **Install to Organization** →
    **Allow**.
 3. **Add it to your demo workspace.** If Slack asks which workspaces should
@@ -321,8 +327,9 @@ things on request without you having to reinstall the app first.
 > isn't listed, add it anytime:
 > 1. In the app settings, open **App Manifest** (or **OAuth & Permissions**)
 >    and add the scope.
-> 2. **Reinstall** the app so the bot token picks it up.
-> 3. For a **user** (persona) scope, also add it to `USER_SCOPES` in
+> 2. If you saved the manifest, go to **Org Level Apps** and **Opt-In** again.
+> 3. **Reinstall** the app so the bot token picks it up.
+> 4. For a **user** (persona) scope, also add it to `USER_SCOPES` in
 >    `scripts/auth_user.py` and re-run `scripts/auth_user.py` for each persona.
 >    Scopes are baked into a token when it's captured.
 
@@ -781,13 +788,34 @@ usually doesn't show up until Step 9. Check these in order:
 2. **The app wasn't created from the full manifest.** If you picked **From
    scratch**, or the `features.bot_user` block or the `bot` scopes list got
    lost while pasting, the app has no bot user. Open **App Manifest**, paste the
-   full JSON from Step 1, save, then reinstall.
+   full JSON from Step 1, save, **Opt-In** again under **Org Level Apps**, then
+   reinstall.
 3. **The manifest changed after installing.** Adding the bot user or bot scopes
-   later needs a **Reinstall** before the token appears.
+   later needs a **Reinstall** before the token appears (and an **Opt-In**
+   again first).
 4. **You're looking at a different value.** The token is labelled **Bot User
    OAuth Token** and starts with `xoxb-`. It's on **Install App** and **OAuth &
    Permissions**. User tokens (`xoxp-`) and the Client ID/Secret are different
    things.
+
+**Install App only offers "Install to Workspace", not "Install to
+Organization"** — The app isn't opted in as an org-level app. Check these in
+order:
+
+1. **Opt-In was skipped.** Go to **Org Level Apps** (left sidebar) →
+   **Opt-In** → confirm, then go back to **Install App**.
+2. **A manifest change undid it.** Saving the manifest resets the app to
+   `"org_deploy_enabled": false`. Opt in again after every manifest change.
+3. **You're not an org owner or admin.** Only org owners and admins can install
+   to the whole organization. Workspace admins only get workspace install, or a
+   request to install. Ask an org admin of your demo org to install it.
+4. **The app was created in the wrong workspace.** If **Org Level Apps** isn't
+   in the sidebar at all, the workspace picked in Step 1 probably isn't part of
+   your demo Enterprise+ org. Recreate the app from Step 1 in a workspace inside
+   it.
+
+Don't fall back to **Install to Workspace**. It issues a bot token, but the
+toolkit expects the org-level install.
 
 ---
 
