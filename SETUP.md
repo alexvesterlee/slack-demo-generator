@@ -196,7 +196,6 @@ for future demos). You don't toggle anything by hand.
            "triggers:read",
            "triggers:write",
            "users:write",
-           "workflow.steps:execute",
            "workflows.templates:read",
            "workflows.templates:write",
            "remote_files:write"
@@ -291,7 +290,7 @@ the manifest):
 | `users:write` | Set the bot's presence |
 | `links:write` | Custom link unfurls (needs unfurl domains configured) |
 | `assistant:write` | Agents & Assistants (needs that feature turned on) |
-| `workflow.steps:execute`, `triggers:read`, `triggers:write`, `workflows.templates:read`, `workflows.templates:write` | Workflow Builder steps, triggers and templates |
+| `triggers:read`, `triggers:write`, `workflows.templates:read`, `workflows.templates:write` | Workflow Builder triggers and templates |
 | `calls:write`, `remote_files:write`, `mcp:connect` | Calls, remote files, MCP connections |
 
 Not every scope has a ready-made script. Most are there so Claude can do those
