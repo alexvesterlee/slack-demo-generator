@@ -117,7 +117,12 @@ def main() -> int:
         else:
             print("  (audit_channel_id not set — audit_log() will silently no-op)")
     else:
-        print("\nAudit logging not configured (app_token unset). That's fine — it's optional.")
+        print("\nChecking bot token ...")
+        print("  NOTE: no bot token saved yet. That's expected until SETUP Step 9.")
+        print("        Before then, open your app's Install App page and confirm it shows a")
+        print("        Bot User OAuth Token (starts with xoxb-). If it doesn't, the Step 2")
+        print("        install most likely didn't finish. See \"No Bot User OAuth Token\" under")
+        print("        Troubleshooting in SETUP.md.")
 
     print()
     if failures:

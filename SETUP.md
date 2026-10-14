@@ -770,6 +770,25 @@ during install. Easiest fix: reinstall from python.org and check **"Add
 python.exe to PATH"** on the first screen. Or use the Python launcher:
 replace `python` with `py` and `python3.12` with `py -3.12`.
 
+**No Bot User OAuth Token (`xoxb-`) on the Install App page** — Your user
+tokens can still work, because `auth_user.py` captures them on its own, so this
+usually doesn't show up until Step 9. Check these in order:
+
+1. **The Step 2 install didn't finish.** If **Install App** still shows an
+   **Install to Organization** button, click it and **Allow**. On Enterprise+
+   orgs the install can stop at a request for an org admin's approval; no bot
+   token is issued until an admin approves it.
+2. **The app wasn't created from the full manifest.** If you picked **From
+   scratch**, or the `features.bot_user` block or the `bot` scopes list got
+   lost while pasting, the app has no bot user. Open **App Manifest**, paste the
+   full JSON from Step 1, save, then reinstall.
+3. **The manifest changed after installing.** Adding the bot user or bot scopes
+   later needs a **Reinstall** before the token appears.
+4. **You're looking at a different value.** The token is labelled **Bot User
+   OAuth Token** and starts with `xoxb-`. It's on **Install App** and **OAuth &
+   Permissions**. User tokens (`xoxp-`) and the Client ID/Secret are different
+   things.
+
 ---
 
 ## How it fits together
