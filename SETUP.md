@@ -488,6 +488,23 @@ more examples.
 
 ---
 
+## ✅ Checkpoint: messages are working
+
+Nice work. Take a quick pause here. Right now you can:
+
+- ✅ **Send messages, threads, and DMs as your demo users**
+
+You **can't** yet:
+
+- ❌ Look up channels by name (so "post in #sales-leadership" works without
+  you hunting down channel IDs)
+- ❌ Create or manage channels (add users, set topics, rename, archive)
+- ❌ Post app notifications (PagerDuty, Jira, Salesforce cards, etc.)
+
+Step 9 unlocks all three. Don't skip it.
+
+---
+
 ## Step 9 — Save the bot token (channel management & app notifications)
 
 > ⚠️ **Super important:** the bot token is what lets Claude **build out your demo org**, not just post
@@ -566,7 +583,9 @@ app notifications can you post?"* for the full list.
 
 ## ✅ Checkpoint: setup is done
 
-Nice work. Take a quick pause here. Right now you can:
+Nice work. To confirm the bot token saved correctly, ask Claude to *"check my
+bot token"*. It runs `scripts/check_bot_token.py` and tells you which org the
+token belongs to. Right now you can:
 
 - ✅ **Send messages, threads, and DMs as your demo users**
 - ✅ **Look up channels by name** (just say "post in #sales-leadership")
