@@ -3,6 +3,10 @@
 Enabled by the bot token (tokens.json -> app_token) carrying channel scopes:
   channels:read, groups:read, channels:manage, groups:write, channels:join
 
+Without a bot token, read-only lookups (resolve, and name lookups inside the
+other commands) fall back to any persona token that has channels:read. A persona
+only sees public channels plus the private ones it belongs to.
+
 Provides a small, tested set of primitives the demo-refresh skill relies on:
   - resolve_channel(name)            name -> id (caches the org channel list)
   - persona_user_id(email)           persona email -> Slack user id (via auth.test)
@@ -146,6 +150,38 @@ def user_id_for_name(name: str) -> str | None:
 # --------------------------------------------------------------------------- #
 # Read / resolve
 # --------------------------------------------------------------------------- #
+def _read_client() -> tuple[WebClient, list[str | None], str]:
+    """Client for channel lookups: (client, workspace team ids, channel types).
+
+    Prefers the bot token. Without one, falls back to the first persona token
+    carrying channels:read (plus groups:read for private channels). Persona
+    auth.test returns the enterprise id (E...) on Grid, but auth.teams.list
+    needs no scope and returns the persona's workspace (T...) ids, so we list
+    across all of them.
+    """
+    tokens = load_tokens()
+    if tokens.get("app_token"):
+        return bot_client(), [workspace_team_id()], "public_channel,private_channel"
+    for email, tok in tokens.get("users", {}).items():
+        if email.startswith("_"):
+            continue
+        client = WebClient(token=tok)
+        try:
+            scopes = client.auth_test().headers.get("x-oauth-scopes", "").split(",")
+            if "channels:read" not in scopes:
+                continue
+            teams = client.api_call("auth.teams.list").get("teams") or []
+        except SlackApiError:
+            continue
+        team_ids = [t["id"] for t in teams if t.get("id", "").startswith("T")] or [None]
+        types = "public_channel,private_channel" if "groups:read" in scopes else "public_channel"
+        return client, team_ids, types
+    print("No bot token, and no persona token has channels:read. Run save_bot_token.py "
+          "(SETUP Side Quest 1), or re-run auth_user.py for a persona to pick up "
+          "channels:read.", file=sys.stderr)
+    raise SystemExit(1)
+
+
 @lru_cache(maxsize=1)
 def _channel_index() -> dict:
     """Map of name -> {'id','is_private','is_archived'} for all org channels.
@@ -153,22 +189,21 @@ def _channel_index() -> dict:
     Cached per process. Includes archived so callers can detect stale/archived
     references; filter on is_archived where needed.
     """
-    client = bot_client()
-    team_id = workspace_team_id()
+    client, team_ids, types = _read_client()
     index: dict[str, dict] = {}
-    cursor = None
-    while True:
-        kwargs = dict(types="public_channel,private_channel", exclude_archived=False,
-                      limit=200, cursor=cursor)
-        if team_id:
-            kwargs["team_id"] = team_id
-        resp = client.conversations_list(**kwargs)
-        for c in resp.get("channels", []):
-            index[c["name"]] = {"id": c["id"], "is_private": c.get("is_private"),
-                                "is_archived": c.get("is_archived")}
-        cursor = resp.get("response_metadata", {}).get("next_cursor")
-        if not cursor:
-            break
+    for team_id in team_ids:
+        cursor = None
+        while True:
+            kwargs = dict(types=types, exclude_archived=False, limit=200, cursor=cursor)
+            if team_id:
+                kwargs["team_id"] = team_id
+            resp = client.conversations_list(**kwargs)
+            for c in resp.get("channels", []):
+                index.setdefault(c["name"], {"id": c["id"], "is_private": c.get("is_private"),
+                                             "is_archived": c.get("is_archived")})
+            cursor = resp.get("response_metadata", {}).get("next_cursor")
+            if not cursor:
+                break
     return index
 
 

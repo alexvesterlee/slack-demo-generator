@@ -42,6 +42,15 @@ how to install and implement this project.
   Keep the manifest — it's how `scripts/delete_dms.py` knows what to remove later.
   When the user just asks in plain English ("send a DM from X to Y"), do all
   of this for them. They shouldn't have to edit configs or run commands.
+- **Channel names → IDs.** When the user names a channel ("post in
+  #sales-leadership"), resolve it yourself with
+  `.venv/bin/python scripts/channel_admin.py resolve --name "sales-leadership"`.
+  Don't call `conversations.list` with a persona token in ad-hoc code, and
+  don't ask the user to dig up channel IDs. `resolve` uses the bot token, or a
+  persona token with `channels:read` if there's no bot token. If it reports no
+  usable token, suggest saving the bot token (SETUP Side Quest 1). Only as a
+  last resort, ask for the ID from the channel's **About** tab. A private
+  channel the bot isn't in won't resolve until the bot is `/invite`d.
 - **App notifications always come from this repo's Block Kit library.** When
   the user asks for an app notification in plain English ("post a PagerDuty
   alert in #incidents"), use `scripts/send_app_notification.py`. It reads the

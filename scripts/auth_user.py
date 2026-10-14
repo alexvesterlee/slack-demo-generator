@@ -40,6 +40,8 @@ USER_SCOPES = [
     "users.profile:read",
     "reactions:write",
     "files:write",
+    "channels:read",
+    "groups:read",
     "channels:write",
     "groups:write",
     "im:write",

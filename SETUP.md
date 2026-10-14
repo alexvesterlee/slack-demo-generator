@@ -134,6 +134,8 @@ for future demos). You don't toggle anything by hand.
            "users.profile:write",
            "files:write",
            "reactions:write",
+           "channels:read",
+           "groups:read",
            "channels:write",
            "groups:write",
            "im:write",
@@ -256,6 +258,7 @@ the manifest):
 | `users.profile:write` | Set the persona's display name / status |
 | `files:write` | Upload files (contracts, decks, PDFs) as the persona |
 | `reactions:write` | Add emoji reactions as the persona |
+| `channels:read`, `groups:read` | Look up channel names → IDs as the persona (used when there's no bot token) |
 | `channels:write`, `groups:write` | Persona-level channel actions |
 | `im:write`, `mpim:write` | Open DMs / group DMs as the persona |
 | `users:write` | Set the persona's presence (show as active during a demo) |
