@@ -40,10 +40,9 @@ connected tools. Save the steps as skills to rebuild or refresh it anytime.
 
 ## Get started
 
-Read [SETUP.md](SETUP.md). Core setup is ~15–20 minutes. Do the core
-(personas + messages) plus Side Quest 1 (the bot token, **strongly
-recommended**, since it's what lets Claude find channels by name). MCP-grounded
-data can wait until you need it. You'll need:
+Read [SETUP.md](SETUP.md). Setup is ~15–20 minutes (Steps 1–9). Connecting
+Salesforce and other tools for real data is a side quest you can do whenever
+you need it. You'll need:
 
 - Admin access to your demo Slack org
 - Python 3.12

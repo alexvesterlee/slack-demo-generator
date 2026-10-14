@@ -18,9 +18,8 @@ Once it's set up you can, for example:
   other system through an MCP server, so the story stays internally consistent.
 - **Clean it all up afterward** from a manifest of everything you posted.
 
-Setup is one-time, ~15–20 minutes. Do the core setup (personas + messages)
-plus **Side Quest 1 (the bot token), which is strongly recommended**. It's what
-lets Claude find channels by name. The rest (MCP data) can wait until you need
+Setup is one-time, ~15–20 minutes (Steps 1–9). The side quest at the end
+(connecting Salesforce and other tools for real data) can wait until you need
 it.
 
 > **Already set up?** [USING_CLAUDE.md](USING_CLAUDE.md) is the next guide: how
@@ -99,7 +98,7 @@ directly instead of activating.
   using a pure-Python library, so you don't need `openssl` installed.
 - **(Optional) MCP servers** — only if you want to ground content in real data
   (Salesforce, Jira/Atlassian, ServiceNow, …). Configured in Claude Code, not
-  here. See [Side Quest 2](#side-quest-2-connect-salesforce--other-tools).
+  here. See the [Side Quest](#side-quest-connect-salesforce--other-tools).
 
 ---
 
@@ -489,29 +488,7 @@ more examples.
 
 ---
 
-## ✅ Checkpoint: the core setup is done
-
-Nice work. Take a quick pause here. Right now you can:
-
-- ✅ **Send messages, threads, and DMs as your demo users**
-
-You **can't** yet:
-
-- ❌ Look up channels by name (so "post in #sales-leadership" works without
-  you hunting down channel IDs)
-- ❌ Create or manage channels (add users, set topics, rename, archive)
-- ❌ Post app notifications (PagerDuty, Jira, Salesforce cards, etc.)
-- ❌ Pull from or update third-party tools like Salesforce
-
-The two side quests below unlock those. **Do Side Quest 1 now.** Without it,
-Claude usually can't work out which channel you mean. Side Quest 2 can wait
-until a demo needs it.
-
----
-
-## Side Quest 1: Channel Management & App Notifications (⭐ Strongly recommended)
-
-### Save the bot token
+## Step 9 — Save the bot token (channel management & app notifications)
 
 > ⚠️ **Super important:** the bot token is what lets Claude **build out your demo org**, not just post
 > a few messages. With it, the app can:
@@ -587,7 +564,25 @@ app notifications can you post?"* for the full list.
 
 ---
 
-## Side Quest 2: Connect Salesforce & other tools
+## ✅ Checkpoint: setup is done
+
+Nice work. Take a quick pause here. Right now you can:
+
+- ✅ **Send messages, threads, and DMs as your demo users**
+- ✅ **Look up channels by name** (just say "post in #sales-leadership")
+- ✅ **Create and manage channels** (add users, set topics, rename, archive)
+- ✅ **Post app notifications** (PagerDuty, Jira, Salesforce cards, etc.)
+
+You **can't** yet:
+
+- ❌ Pull from or update third-party tools like Salesforce
+
+The side quest below unlocks that. Do it now or come back later when a demo
+needs it.
+
+---
+
+## Side Quest: Connect Salesforce & other tools
 
 Connecting Salesforce and Jira lets Claude **read and update real data** in
 those tools, not just post in Slack. That makes demos much more convincing:

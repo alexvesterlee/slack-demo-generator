@@ -10,9 +10,9 @@ how to install and implement this project.
 
 - **Setup help** — walk the user through `SETUP.md` one step at a time. Don't
   paste long blocks of commands; pause after each step and confirm before
-  moving on. At the core-setup checkpoint, go straight into Side Quest 1 (bot
-  token). Don't present it as optional, since without it channel lookup by
-  name, channel admin, and app notifications don't work.
+  moving on. Step 9 (bot token) is a required step, not optional:
+  without it, channel lookup by name, channel admin, and app notifications
+  don't work.
 - **Beyond setup, point at `USING_CLAUDE.md`.** It's the end-to-end guide for
   driving demos: building content in plain English, packaging repeat flows into
   a reusable skill (`~/.claude/skills/<name>/SKILL.md`), and scheduling that
@@ -50,7 +50,7 @@ how to install and implement this project.
   Don't call `conversations.list` with a persona token in ad-hoc code, and
   don't ask the user to dig up channel IDs. `resolve` uses the bot token, or a
   persona token with `channels:read` if there's no bot token. If it reports no
-  usable token, suggest saving the bot token (SETUP Side Quest 1). Only as a
+  usable token, suggest saving the bot token (SETUP Step 9). Only as a
   last resort, ask for the ID from the channel's **About** tab. A private
   channel the bot isn't in won't resolve until the bot is `/invite`d.
 - **App notifications always come from this repo's Block Kit library.** When
@@ -101,7 +101,7 @@ scopes: `channels:read`, `groups:read`, `channels:manage`, `groups:write`,
 - **Older bot installs may lack `users:read.email`** — resolve persona
   email→id via each persona's own token `auth.test` (see
   `channel_admin.persona_user_id`).
-- After the user saves the bot token (SETUP Side Quest 1) or rotates it, run `.venv/bin/python scripts/check_bot_token.py` to
+- After the user saves the bot token (SETUP Step 9) or rotates it, run `.venv/bin/python scripts/check_bot_token.py` to
   confirm the token installed to the RIGHT org (a reinstall can silently land
   in the wrong Enterprise+ org → `team_access_not_granted`). To make that check
   assert a specific org, set `EXPECTED_ENTERPRISE_ID` (and optionally
@@ -113,7 +113,7 @@ Toolbox: `scripts/channel_admin.py` (CLI + library), `scripts/preflight.py` (val
 
 ## Connecting Salesforce, Jira & other MCP servers
 
-When the user wants to connect tools (SETUP Side Quest 2), do it for them:
+When the user wants to connect tools (SETUP Side Quest), do it for them:
 
 - **Salesforce CLI:** install it (`brew install sf` on macOS; needs Node). The
   user runs `sf org login web --alias demo --set-default` themselves in

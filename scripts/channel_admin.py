@@ -177,7 +177,7 @@ def _read_client() -> tuple[WebClient, list[str | None], str]:
         types = "public_channel,private_channel" if "groups:read" in scopes else "public_channel"
         return client, team_ids, types
     print("No bot token, and no persona token has channels:read. Run save_bot_token.py "
-          "(SETUP Side Quest 1), or re-run auth_user.py for a persona to pick up "
+          "(SETUP Step 9), or re-run auth_user.py for a persona to pick up "
           "channels:read.", file=sys.stderr)
     raise SystemExit(1)
 
