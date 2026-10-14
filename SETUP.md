@@ -235,10 +235,9 @@ Demo orgs are Enterprise+ organizations, so the app needs to be enabled at the
    Apps** (left sidebar, under Settings) and click **Opt-In**, then confirm.
    **Install to Organization** in the next step only appears after this.
 
-   > ⚠️ **Any time you save a change to the app manifest, opt in again.**
-   > Saving the manifest resets the app to `"org_deploy_enabled": false`, which
-   > quietly opts it back out. Go back to **Org Level Apps** → **Opt-In** after
-   > every manifest change.
+   > ⚠️ **Don't edit the app manifest after this point.** To change scopes,
+   > use **OAuth & Permissions** instead. Saving the manifest turns org-level
+   > off again, so you'd have to redo this Opt-In.
 2. **Install it.** Go to **Install App** → **Install to Organization** →
    **Allow**.
 3. **Add it to your demo workspace.** If Slack asks which workspaces should
@@ -325,11 +324,10 @@ things on request without you having to reinstall the app first.
 > ℹ **You can add more scopes later.** This manifest covers what the toolkit
 > uses plus a broad set of extras. If a specific demo needs something that
 > isn't listed, add it anytime:
-> 1. In the app settings, open **App Manifest** (or **OAuth & Permissions**)
->    and add the scope.
-> 2. If you saved the manifest, go to **Org Level Apps** and **Opt-In** again.
-> 3. **Reinstall** the app so the bot token picks it up.
-> 4. For a **user** (persona) scope, also add it to `USER_SCOPES` in
+> 1. In the app settings, open **OAuth & Permissions** and add the scope.
+>    (Not **App Manifest**: saving it turns org-level off. See Step 2.)
+> 2. **Reinstall** the app so the bot token picks it up.
+> 3. For a **user** (persona) scope, also add it to `USER_SCOPES` in
 >    `scripts/auth_user.py` and re-run `scripts/auth_user.py` for each persona.
 >    Scopes are baked into a token when it's captured.
 
