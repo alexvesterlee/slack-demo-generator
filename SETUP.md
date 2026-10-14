@@ -226,6 +226,19 @@ for future demos). You don't toggle anything by hand.
 
 ---
 
+## ✅ Checkpoint: the app exists
+
+Before moving on, check that:
+
+- ✅ You're on your new app's settings page at https://api.slack.com/apps, and
+  it shows the name you chose (e.g. **Demo Content Helper**).
+- ✅ The left sidebar lists **Org Level Apps** (you'll use it in Step 2).
+
+If Slack rejected the manifest, the JSON was probably cut off while copying.
+Copy the whole block again and paste it over the old one.
+
+---
+
 ## Step 2 — Make it an org-level app, then install it
 
 Demo orgs are Enterprise+ organizations, so the app needs to be enabled at the
@@ -326,6 +339,20 @@ things on request without you having to reinstall the app first.
 >    `scripts/auth_user.py` and re-run `scripts/auth_user.py` for each persona.
 >    Scopes are baked into a token when it's captured.
 
+---
+
+## ✅ Checkpoint: the app is installed
+
+Before moving on, check that:
+
+- ✅ **Org Level Apps** no longer offers **Opt-In** (the app is opted in).
+- ✅ **Install App** now shows a **Bot User OAuth Token** starting with
+  `xoxb-`. You don't need it yet; you'll save it in Step 9.
+- ✅ In Slack, the app shows up under **Apps** in your demo workspace.
+
+If the app isn't in your demo workspace, go back to **Install App** and add
+that workspace. If installing asks for an org admin's approval, ask an admin
+of your demo org to approve it, then come back here.
 
 ---
 
